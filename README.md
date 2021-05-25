@@ -16,31 +16,42 @@ This is a [sciter.js](https://sciter.com/) events demo.
 - click `CTRL + SHIFT + left click` to inspect an element
 - note: the clock component forces the DOM to refresh every second, remove the component if you want to inspect in peace.
 
-## events
+## event
 
 An event is a signal that something has happened. All DOM nodes generate such signals but events are not limited to DOM.
 
 [https://javascript.info/introduction-browser-events](https://javascript.info/introduction-browser-events)
 
+## event names
+
 mouse
 - `click` mouse left click
 - `contextmenu` mouse right click
+- `dblclick`
 - `mouseover`,`mouseout` mouse cursor over, leaves element
 - `mousedown`,`mouseup` mouse pressed, released
 - `mousemove` mouse moving over element
+- `mousewheel`
 
 keyboard
 - `keydown`, `keyup` key pressed or released
+- `keypress`
 
 form
 - `submit` form submission
 - `focus` element focused
+- `reset`
 
 document
 - `DOMContentLoaded` DOM fully built
 
 css
 - `transitionend` CSS animation finished
+
+- `resize` `scroll` `zoom`
+- `touchstart` `touchmove` `touchend` `touchcancel`
+- `blur` `change` `textInput` `select`
+
 
 ## event handlers
 
@@ -51,13 +62,14 @@ Event handlers allow to react to events.
 ### direct element event handler
 
 Element event handlers are attached to a particular element explicitly, which means that the **DOM element must exist for the event handler to attach to it**.
-- `element.on("eventname", function(event) {…})` jQuery like form of event subscription. It matches `addEventListener()` functionality but is less verbose.  And it also allows to subscribe to events in capturing phase by prepending ^ to eventname.
+
+- `element.on(eventName, function(event) {…})` jQuery like form of event subscription. It matches `addEventListener()` functionality but is less verbose.  And it also allows to subscribe to events in capturing phase by prepending ^ to eventName.
 - `element.addEventListener(eventName, handler [,options])` standard HTML5 event handler
 - `element.oneventname = function(event) {…}` primitive way and not recommended because of its limitations such just one click handler can be attached to any element. to confirm: propagation cannot be stopped?
 
 ### group (a.k.a. filtered) event handler
 
-`element.on("eventname", "css selector", function(event, matchedElement) {…})`
+`element.on(eventName, "css selector", function(event, matchedElement) {…})`
 - applies to all elements matching css selector
 - Elements added to the DOM after the event handler was added are also tracked
 
@@ -66,6 +78,12 @@ Element event handlers are attached to a particular element explicitly, which me
 This group of event handlers is strictly Sciter specific and is used in class based UI components.
 
 `["on eventname at css-selector"](event, matchedChild) {}`
+
+## listen to multiple events
+
+Event names can be combined.
+
+`document.on("click mousedown mouseup", function(event) {…})`
 
 ## event object
 
