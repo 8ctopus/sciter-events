@@ -16,14 +16,42 @@ This is a [sciter.js](https://sciter.com/) events demo.
 - click `CTRL + SHIFT + left click` to inspect an element
 - note: the clock component forces the DOM to refresh every second, remove the component if you want to inspect in peace.
 
+# events
+
+An event is a signal that something has happened. All DOM nodes generate such signals but events are not limited to DOM.
+
+[https://javascript.info/introduction-browser-events](https://javascript.info/introduction-browser-events)
+
+Mouse events
+- `click` mouse left click
+- `contextmenu` mouse right click
+- `mouseover`,`mouseout` mouse cursor over, leaves element
+- `mousedown`,`mouseup` mouse pressed, released
+- `mousemove` mouse moving over element
+
+Keyboard events
+- `keydown`, `keyup` key pressed or released
+
+Form events
+- `submit` form submission
+- `focus` element focused
+
+Document events
+`DOMContentLoaded` DOM fully built
+
+CSS events:
+`transitionend` CSS animation finished
+
 # event handlers
+
+Event handlers allow to react to events.
 
 [https://sciter.com/event-handling-in-sciter/](https://sciter.com/event-handling-in-sciter/)
 
 ## direct element event handlers
 
 Element event handlers are the ones that are attached to particular elements explicitly. **The DOM element must exist for the event handler to attach to it**.
-- `element.on(“eventname“, function(event) {…})`
+- `element.on("eventname", function(event) {…})`
     jQuery like form of event subscription. It matches `addEventListener()` functionality but is less verbose.  And it also allows to subscribe to events in capturing phase by prepending ^ to eventname.
 - `element.addEventListener(eventName, handler [,options])`
     This is standard HTML5 way of attaching event handlers.
@@ -32,7 +60,7 @@ Element event handlers are the ones that are attached to particular elements exp
 
 ## group (a.k.a. filtered) event handlers
 
-`element.on(“eventname“, “css selector“, function(event, matchedElement) {…})`
+`element.on("eventname", "css selector", function(event, matchedElement) {…})`
     - works on all elements matching css selector
     - Elements added to the DOM after the event handler was added are also tracked.
 
@@ -40,7 +68,11 @@ Element event handlers are the ones that are attached to particular elements exp
 
 This group of event handlers is strictly Sciter specific and is used in class based UI components.
 
-`[“on eventname at css-selector“](event, matchedChild) {}`
+`["on eventname at css-selector"](event, matchedChild) {}`
+
+## event object
+
+[https://www.w3schools.com/jsreF/obj_event.asp](https://www.w3schools.com/jsreF/obj_event.asp)
 
 ## event propagation
 
