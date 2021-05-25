@@ -6,28 +6,64 @@
 <head>
 <title>sciter events demo</title>
 <style>
+
+body {
+    border-spacing: 1em;
+}
+
 </style>
 <script>
 
 "use strict";
 
-function log(string)
+function log(event, element)
 {
     const log = document.$("plaintext");
-    log.plaintext.appendLine(string);
-    console.log(string);
+
+    const type   = event.type;
+    const target = element ? element.id : event.currentTarget.id;
+
+    log.plaintext.appendLine(`${type} on ${target}`);
+    //console.log(string);
 }
 
-const button = document.$("button#b1");
 
-button.onclick = function(event) {
-    log(`button ${event}`);
+// direct element event handlers
+// 1. primitive event handler - not recommended
+document.$("button#b1").onclick = function(event) {
+    log(event);
 };
+
+// 2. jquery like
+document.$("button#b2").on("click", function(event) {
+    log(event);
+});
+
+// 3. html standard way
+document.$("button#b3").addEventListener("click", function(event) {
+    log(event);
+});
+
+
+// group event handler
+document.on("mousemove", "button", function(event, element) {
+    log(event, element);
+});
+
+// add new button to DOM after group event handler was added to check
+// if this element will also trigger the event handler
+const button     = document.createElement("button");
+button.setAttribute("id", "b4");
+button.innerHTML = "button 4";
+
+document.body.insertBefore(button, document.$("plaintext"));
 
 </script>
 </head>
 <body>
-    <button #b1>click me</button>
+    <button #b1>button 1</button>
+    <button #b2>button 2</button>
+    <button #b3>button 3</button>
     <plaintext|text />
 </body>
 </html>
