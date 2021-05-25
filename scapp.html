@@ -78,6 +78,28 @@ document.$("button#b2").on("mousemove", function(event) {
     log(event);
 });
 
+
+// send click event
+document.$("button#b2").click();
+
+// alternative way using event
+document.$("button#b3").dispatchEvent(new Event("click", {
+    "bubbles": true,
+    "cancelable": false,
+    "composed": false,
+}));
+
+document.dispatchEvent(new Event("click", {}))
+
+
+// custom event
+document.addEventListener("build", function(event) {
+    console.log(event.detail);
+}, false);
+
+const event = new CustomEvent("build", { detail: "custom data" });
+document.dispatchEvent(event);
+
 </script>
 </head>
 <body>
