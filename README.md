@@ -16,7 +16,7 @@ This is a [sciter.js](https://sciter.com/) events demo.
 - click `CTRL + SHIFT + left click` to inspect an element
 - note: the clock component forces the DOM to refresh every second, remove the component if you want to inspect in peace.
 
-# events
+## events
 
 An event is a signal that something has happened. All DOM nodes generate such signals but events are not limited to DOM.
 
@@ -42,13 +42,13 @@ Document events
 CSS events:
 `transitionend` CSS animation finished
 
-# event handlers
+## event handlers
 
 Event handlers allow to react to events.
 
 [https://sciter.com/event-handling-in-sciter/](https://sciter.com/event-handling-in-sciter/)
 
-## direct element event handlers
+### direct element event handlers
 
 Element event handlers are the ones that are attached to particular elements explicitly. **The DOM element must exist for the event handler to attach to it**.
 - `element.on("eventname", function(event) {…})`
@@ -58,13 +58,13 @@ Element event handlers are the ones that are attached to particular elements exp
 - `element.oneventname = function(event) {…}`
     Primitive way and not recommended because of its limitations such just one click handler can be attached to any element.
 
-## group (a.k.a. filtered) event handlers
+### group (a.k.a. filtered) event handlers
 
 `element.on("eventname", "css selector", function(event, matchedElement) {…})`
     - works on all elements matching css selector
     - Elements added to the DOM after the event handler was added are also tracked.
 
-## class component event handlers
+### class component event handlers
 
 This group of event handlers is strictly Sciter specific and is used in class based UI components.
 
