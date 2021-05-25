@@ -22,25 +22,25 @@ An event is a signal that something has happened. All DOM nodes generate such si
 
 [https://javascript.info/introduction-browser-events](https://javascript.info/introduction-browser-events)
 
-Mouse events
+mouse
 - `click` mouse left click
 - `contextmenu` mouse right click
 - `mouseover`,`mouseout` mouse cursor over, leaves element
 - `mousedown`,`mouseup` mouse pressed, released
 - `mousemove` mouse moving over element
 
-Keyboard events
+keyboard
 - `keydown`, `keyup` key pressed or released
 
-Form events
+form
 - `submit` form submission
 - `focus` element focused
 
-Document events
-`DOMContentLoaded` DOM fully built
+document
+- `DOMContentLoaded` DOM fully built
 
-CSS events:
-`transitionend` CSS animation finished
+css
+- `transitionend` CSS animation finished
 
 ## event handlers
 
@@ -48,23 +48,20 @@ Event handlers allow to react to events.
 
 [https://sciter.com/event-handling-in-sciter/](https://sciter.com/event-handling-in-sciter/)
 
-### direct element event handlers
+### direct element event handler
 
-Element event handlers are the ones that are attached to particular elements explicitly. **The DOM element must exist for the event handler to attach to it**.
-- `element.on("eventname", function(event) {…})`
-    jQuery like form of event subscription. It matches `addEventListener()` functionality but is less verbose.  And it also allows to subscribe to events in capturing phase by prepending ^ to eventname.
-- `element.addEventListener(eventName, handler [,options])`
-    This is standard HTML5 way of attaching event handlers.
-- `element.oneventname = function(event) {…}`
-    Primitive way and not recommended because of its limitations such just one click handler can be attached to any element.
+Element event handlers are attached to a particular element explicitly, which means that the **DOM element must exist for the event handler to attach to it**.
+- `element.on("eventname", function(event) {…})` jQuery like form of event subscription. It matches `addEventListener()` functionality but is less verbose.  And it also allows to subscribe to events in capturing phase by prepending ^ to eventname.
+- `element.addEventListener(eventName, handler [,options])` standard HTML5 event handler
+- `element.oneventname = function(event) {…}` primitive way and not recommended because of its limitations such just one click handler can be attached to any element. to confirm: propagation cannot be stopped?
 
-### group (a.k.a. filtered) event handlers
+### group (a.k.a. filtered) event handler
 
 `element.on("eventname", "css selector", function(event, matchedElement) {…})`
-    - works on all elements matching css selector
-    - Elements added to the DOM after the event handler was added are also tracked.
+- applies to all elements matching css selector
+- Elements added to the DOM after the event handler was added are also tracked
 
-### class component event handlers
+### class component event handler
 
 This group of event handlers is strictly Sciter specific and is used in class based UI components.
 
@@ -108,8 +105,6 @@ eventInit
 - `cancelable` default `false`
 - `composed` default `false` whether the event will trigger listeners outside of a shadow root
 
-[https://developer.mozilla.org/en-US/docs/Web/API/Event/Event](https://developer.mozilla.org/en-US/docs/Web/API/Event/Event)
-
 ```js
 document.addEventListener("click", function(event) {
     console.log(event.type);
@@ -124,9 +119,9 @@ const event = new Event("click", {
 document.dispatchEvent(event);
 ```
 
-### custom events
+[https://developer.mozilla.org/en-US/docs/Web/API/Event/Event](https://developer.mozilla.org/en-US/docs/Web/API/Event/Event)
 
-[https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_events#creating_custom_events](https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_events#creating_custom_events)
+### custom events
 
 ```js
 element.addEventListener("build", function(event) {
@@ -137,3 +132,5 @@ const event = new CustomEvent("build", { detail: "custom details" });
 
 element.dispatchEvent(event);
 ```
+
+[https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_events#creating_custom_events](https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_events#creating_custom_events)
