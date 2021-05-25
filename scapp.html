@@ -4,13 +4,30 @@
     window-height="770dip"
 >
 <head>
-<title>sciter components demo</title>
+<title>sciter events demo</title>
 <style>
 </style>
 <script>
+
+"use strict";
+
+function log(string)
+{
+    const log = document.$("plaintext");
+    log.plaintext.appendLine(string);
+    console.log(string);
+}
+
+const button = document.$("button#b1");
+
+button.onclick = function(event) {
+    log(`button ${event}`);
+};
+
 </script>
 </head>
 <body>
     <button #b1>click me</button>
+    <plaintext|text />
 </body>
 </html>
