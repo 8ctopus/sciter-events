@@ -72,7 +72,7 @@ This group of event handlers is strictly Sciter specific and is used in class ba
 
 ## event object
 
-[https://www.w3schools.com/jsreF/obj_event.asp](https://www.w3schools.com/jsreF/obj_event.asp)
+[https://github.com/8ctopus/sciter-js-sdk/blob/main/docs/md/Event.md](https://github.com/8ctopus/sciter-js-sdk/blob/main/docs/md/Event.md)
 
 ## event propagation
 
@@ -96,3 +96,32 @@ When an event happens on an element, it first runs the handlers on it, then on i
 But any handler may decide that the event has been fully processed and stop the bubbling. The method for it is `event.stopPropagation()`. Don’t stop bubbling without a need!
 
 If an element has multiple event handlers on a single event, then even if one of them stops the bubbling, the other ones still execute. In this case use `event.stopImmediatePropagation()`.
+
+## send events from code
+
+`element.dispatchEvent(new Event(typeArg [, eventInit]));`
+
+[https://developer.mozilla.org/en-US/docs/Web/API/Event/Event](https://developer.mozilla.org/en-US/docs/Web/API/Event/Event)
+
+```js
+const event = new Event("click", {
+    "bubbles": true,
+    "cancelable": false,
+    "composed": false,
+});
+
+document.dispatchEvent(eventt);
+``
+### custom events
+
+[https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_events#creating_custom_events](https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_events#creating_custom_events)
+
+```js
+element.addEventListener("build", function(event) {
+    console.log(event.detail);
+}, false);
+
+const event = new CustomEvent("build", { detail: "custom details" });
+
+element.dispatchEvent(event);
+```
