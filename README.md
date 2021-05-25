@@ -124,13 +124,19 @@ document.dispatchEvent(event);
 ### custom events
 
 ```js
-element.addEventListener("build", function(event) {
-    console.log(event.detail);
+document.addEventListener("myevent", function(event) {
+    console.log(event.detail.data1);
+    console.log(event.detail.data2);
 }, false);
 
-const event = new CustomEvent("build", { detail: "custom details" });
+const event = new CustomEvent("myevent", {
+    detail: {
+        data1: "data 1",
+        data2: "data 2"
+    }
+});
 
-element.dispatchEvent(event);
+document.dispatchEvent(event);
 ```
 
 [https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_events#creating_custom_events](https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_events#creating_custom_events)

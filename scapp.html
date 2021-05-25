@@ -92,12 +92,19 @@ document.$("button#b3").dispatchEvent(new Event("click", {
 document.dispatchEvent(new Event("click", {}))
 
 
-// custom event
-document.addEventListener("build", function(event) {
-    console.log(event.detail);
+// send custom event
+document.addEventListener("myevent", function(event) {
+    const log = document.$("plaintext");
+    log.plaintext.appendLine(`CustomEvent - ${event.detail.data1} - ${event.detail.data2}`);
 }, false);
 
-const event = new CustomEvent("build", { detail: "custom data" });
+const event = new CustomEvent("myevent", {
+    detail: {
+        data1: "data 1",
+        data2: "data 2"
+    }
+});
+
 document.dispatchEvent(event);
 
 </script>
