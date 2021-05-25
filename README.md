@@ -99,19 +99,31 @@ If an element has multiple event handlers on a single event, then even if one of
 
 ## send events from code
 
+Events can also be sent from the javascript code by using the `dispatchEvent` method.
+
 `element.dispatchEvent(new Event(typeArg [, eventInit]));`
+
+eventInit
+- `bubbles` default `false`
+- `cancelable` default `false`
+- `composed` default `false` whether the event will trigger listeners outside of a shadow root
 
 [https://developer.mozilla.org/en-US/docs/Web/API/Event/Event](https://developer.mozilla.org/en-US/docs/Web/API/Event/Event)
 
 ```js
+document.addEventListener("click", function(event) {
+    console.log(event.type);
+}, false);
+
 const event = new Event("click", {
     "bubbles": true,
     "cancelable": false,
     "composed": false,
 });
 
-document.dispatchEvent(eventt);
-``
+document.dispatchEvent(event);
+```
+
 ### custom events
 
 [https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_events#creating_custom_events](https://developer.mozilla.org/en-US/docs/Web/Events/Creating_and_triggering_events#creating_custom_events)
