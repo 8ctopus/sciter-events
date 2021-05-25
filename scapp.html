@@ -107,6 +107,13 @@ const event = new CustomEvent("myevent", {
 
 document.dispatchEvent(event);
 
+
+// listen for multiple events
+document.on("focus dblclick scroll zoom select resize", function(event) {
+    const log = document.$("plaintext");
+    log.plaintext.appendLine(`${event.type}`);
+});
+
 </script>
 </head>
 <body>
