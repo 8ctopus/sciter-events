@@ -20,10 +20,11 @@ function log(event, element)
 {
     const log = document.$("plaintext");
 
-    const type   = event.type;
-    const target = element ? element.id : event.currentTarget.id;
+    const type = event.type;
+    const tag  = element ? element.tag : event.currentTarget.tag;
+    const id   = element ? element.id : event.currentTarget.id;
 
-    log.plaintext.appendLine(`${type} on ${target}`);
+    log.plaintext.appendLine(`${type} on ${tag}#${id}`);
     //console.log(string);
 }
 
@@ -45,8 +46,14 @@ document.$("button#b3").addEventListener("click", function(event) {
 });
 
 
-// group event handler
-document.on("mousemove", "button", function(event, element) {
+// group event handler for right click on all buttons
+document.on("contextmenu", "button", function(event, element) {
+    log(event, element);
+});
+
+
+// add event handler for not yet existing button 4
+document.on("keydown", "button#b4", function(event, element) {
     log(event, element);
 });
 
@@ -56,14 +63,30 @@ const button     = document.createElement("button");
 button.setAttribute("id", "b4");
 button.innerHTML = "button 4";
 
-document.body.insertBefore(button, document.$("plaintext"));
+document.$("div").appendChild(button);
+
+
+// capture event handler with propagation block
+// button2 mousemove is never called
+document.on("^mousemove", "button", function(event, element) {
+    // block other subscribers from getting the event
+    event.stopPropagation();
+});
+
+// button 2 mouse move event
+document.$("button#b2").on("mousemove", function(event) {
+    log(event);
+});
 
 </script>
 </head>
 <body>
-    <button #b1>button 1</button>
-    <button #b2>button 2</button>
-    <button #b3>button 3</button>
+    Left and right click on the buttons or press keys
+    <div #buttons>
+        <button #b1>button 1</button>
+        <button #b2>button 2</button>
+        <button #b3>button 3</button>
+    </div>
     <plaintext|text />
 </body>
 </html>
