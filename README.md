@@ -22,36 +22,9 @@ An event is a signal that something has happened. All DOM nodes generate such si
 
 [https://javascript.info/introduction-browser-events](https://javascript.info/introduction-browser-events)
 
-## event names
+## known events
 
-mouse
-- `click` mouse left click
-- `contextmenu` mouse right click
-- `dblclick`
-- `mouseover`,`mouseout` mouse cursor over, leaves element
-- `mousedown`,`mouseup` mouse pressed, released
-- `mousemove` mouse moving over element
-- `mousewheel`
-
-keyboard
-- `keydown`, `keyup` key pressed or released
-- `keypress`
-
-form
-- `submit` form submission
-- `focus` element focused
-- `reset`
-
-document
-- `DOMContentLoaded` DOM fully built
-
-css
-- `transitionend` CSS animation finished
-
-- `resize` `scroll` `zoom`
-- `touchstart` `touchmove` `touchend` `touchcancel`
-- `blur` `change` `textInput` `select`
-
+[https://github.com/8ctopus/sciter-js-sdk/blob/main/docs/md/Event.md#known-events](https://github.com/8ctopus/sciter-js-sdk/blob/main/docs/md/Event.md#known-events)
 
 ## event handlers
 
