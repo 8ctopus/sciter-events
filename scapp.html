@@ -12,6 +12,7 @@ body {
 }
 
 </style>
+<script src="js/utils.js" />
 <script>
 
 "use strict";
@@ -60,7 +61,7 @@ document.on("keydown", "button#b4", function(event, element) {
 // add new button to DOM after group event handler was added to check
 // if this element will also trigger the event handler
 const button     = document.createElement("button");
-button.setAttribute("id", "b4");
+button.id        = "b4";
 button.innerHTML = "button 4";
 
 document.$("div").appendChild(button);
