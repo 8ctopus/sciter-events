@@ -1,119 +1,146 @@
 <html
     window-resizable="true"
-    window-width="400dip"
+    window-width="600dip"
     window-height="770dip"
 >
 <head>
 <title>sciter events demo</title>
 <style>
 
+@import url(vendor/8ctopus/sciter-logger/src/logger.css);
+
 body {
     border-spacing: 1em;
 }
 
 </style>
-<script src="js/utils.js" />
-<script>
+<script type="module">
 
-"use strict";
+import {logger} from "vendor/8ctopus/sciter-logger/src/logger.js";
+import * as utils from "vendor/8ctopus/sciter-utils/src/utils.js";
+
+// initialize logger
+logger.init();
+
+// attach logger to console
+logger.attach();
+
+// capture unhandled exceptions
+logger.capture();
+
+document.on("ready", function() {
+    // subscribe to logger messages
+    logger.plaintext(document.$("plaintext#logger"));
+
+    // add support for F5 reload
+    utils.addReloadWindow();
+
+    // close window on escape
+    utils.closeWindowOnEscape();
+
+    // center window on screen
+    utils.centerWindow("screen");
+
+    // bring window to front
+    utils.windowToFront();
+
+    // log sciter version
+    console.debug(utils.sciterInfo());
+
+
+    // direct element event handlers
+    // 1. primitive event handler - not recommended see readme
+    document.$("button#b1").onclick = function(event) {
+        log(event);
+    };
+
+    // 2. jquery like
+    document.$("button#b2").on("click", function(event) {
+        log(event);
+    });
+
+    // 3. html standard way
+    document.$("button#b3").addEventListener("click", function(event) {
+        log(event);
+    });
+
+
+    // group event handler for right click on all buttons
+    document.on("contextmenu", "button", function(event, element) {
+        log(event, element);
+    });
+
+
+    // add event handler for not yet existing button 4
+    document.on("click", "button#b4", function(event, element) {
+        log(event, element);
+    });
+
+    // add new button to DOM after group event handler was added to check
+    // if this element will also trigger the event handler
+    const button     = document.createElement("button");
+    button.id        = "b4";
+    button.innerHTML = "button 4";
+
+    document.$("div").appendChild(button);
+
+
+    // capture event handler with propagation block
+    // button2 mousemove is never called
+    document.on("^mousemove", "button", function(event, element) {
+        // block other subscribers from getting the event
+        event.stopPropagation();
+    });
+
+    // button 2 mouse move event
+    document.$("button#b2").on("mousemove", function(event) {
+        log(event);
+    });
+
+
+    // send click event
+    document.$("button#b2").click();
+
+    // alternative way using event
+    document.$("button#b3").dispatchEvent(new Event("click", {
+        "bubbles": true,
+        "cancelable": false,
+        "composed": false,
+    }));
+
+    document.dispatchEvent(new Event("click", {}))
+
+
+    // send custom event
+    document.addEventListener("myevent", function(event) {
+        console.log(`CustomEvent - ${event.detail.data1} - ${event.detail.data2}`);
+    }, false);
+
+    const event = new CustomEvent("myevent", {
+        detail: {
+            data1: "data 1",
+            data2: "data 2",
+        }
+    });
+
+    document.dispatchEvent(event);
+
+
+    // listen for multiple events
+    document.on("focus dblclick scroll zoom select resize", function(event) {
+        console.log(`${event.type}`);
+    });
+});
 
 function log(event, element)
 {
-    const log = document.$("plaintext");
-
     const type = event.type;
+
     const tag  = element ? element.tag : event.currentTarget.tag;
     const id   = element ? element.id : event.currentTarget.id;
 
-    log.plaintext.appendLine(`${type} on ${tag}#${id}`);
-    //console.log(string);
+    console.log(`${type} on ${tag}#${id}`);
 }
-
-
-// direct element event handlers
-// 1. primitive event handler - not recommended see readme
-document.$("button#b1").onclick = function(event) {
-    log(event);
-};
-
-// 2. jquery like
-document.$("button#b2").on("click", function(event) {
-    log(event);
-});
-
-// 3. html standard way
-document.$("button#b3").addEventListener("click", function(event) {
-    log(event);
-});
-
-
-// group event handler for right click on all buttons
-document.on("contextmenu", "button", function(event, element) {
-    log(event, element);
-});
-
-
-// add event handler for not yet existing button 4
-document.on("keydown", "button#b4", function(event, element) {
-    log(event, element);
-});
-
-// add new button to DOM after group event handler was added to check
-// if this element will also trigger the event handler
-const button     = document.createElement("button");
-button.id        = "b4";
-button.innerHTML = "button 4";
-
-document.$("div").appendChild(button);
-
-
-// capture event handler with propagation block
-// button2 mousemove is never called
-document.on("^mousemove", "button", function(event, element) {
-    // block other subscribers from getting the event
-    event.stopPropagation();
-});
-
-// button 2 mouse move event
-document.$("button#b2").on("mousemove", function(event) {
-    log(event);
-});
-
-
-// send click event
-document.$("button#b2").click();
-
-// alternative way using event
-document.$("button#b3").dispatchEvent(new Event("click", {
-    "bubbles": true,
-    "cancelable": false,
-    "composed": false,
-}));
-
-document.dispatchEvent(new Event("click", {}))
-
-
-// send custom event
-document.addEventListener("myevent", function(event) {
-    const log = document.$("plaintext");
-    log.plaintext.appendLine(`CustomEvent - ${event.detail.data1} - ${event.detail.data2}`);
-}, false);
-
-const event = new CustomEvent("myevent", {
-    detail: {
-        data1: "data 1",
-        data2: "data 2",
-    }
-});
-
-document.dispatchEvent(event);
-
-
-// listen for multiple events
-document.on("focus dblclick scroll zoom select resize", function(event) {
-    const log = document.$("plaintext");
-    log.plaintext.appendLine(`${event.type}`);
-});
 
 </script>
 </head>
@@ -124,6 +151,6 @@ document.on("focus dblclick scroll zoom select resize", function(event) {
         <button #b2>button 2</button>
         <button #b3>button 3</button>
     </div>
-    <plaintext|text />
+    <plaintext #logger />
 </body>
 </html>
