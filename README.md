@@ -5,10 +5,10 @@ This is a [sciter.js](https://sciter.com/) events demo.
 ## demo
 
 - git clone the repository
-- run `install.bat` to download the latest sciter binaries and the sciter package manager
+- on Linux/Mac `chmod +x install.sh start.sh`
+- run `install.bat` (Win) or `./install.sh` (Linux/Mac) to download the latest sciter binaries and the sciter package manager
 - install packages `php bin/spm.phar install`
-- run `start.bat`
-- to refresh the app after changes to the html/css click `F5`
+- run `start.bat` (Win) or `./start.sh` (Linux/Mac)
 
 ## event
 
