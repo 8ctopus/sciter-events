@@ -1,7 +1,7 @@
 <html
     window-resizable="true"
     window-width="600dip"
-    window-height="770dip"
+    window-height="400dip"
 >
 <head>
 <title>sciter events demo</title>
@@ -28,25 +28,24 @@ logger.attach();
 // capture unhandled exceptions
 logger.capture();
 
-document.on("ready", function() {
+document.ready = function() {
     // subscribe to logger messages
     logger.plaintext(document.$("plaintext#logger"));
+
+    // log sciter version
+    console.debug(utils.sciterInfo());
 
     // add support for F5 reload
     utils.addReloadWindow();
 
     // close window on escape key press
-    utils.closeWindowOnEscape();
+    utils.closeWindowOnEscape(Window.this);
 
     // center window on screen
-    utils.centerWindow("screen");
+    utils.centerWindow(Window.this, "screen");
 
     // bring window to front
-    utils.windowToFront();
-
-    // log sciter version
-    console.debug(utils.sciterInfo());
-
+    utils.windowToFront(Window.this);
 
     // direct element event handlers
     // 1. primitive event handler - not recommended see readme
@@ -130,7 +129,7 @@ document.on("ready", function() {
     document.on("focus dblclick scroll zoom select resize", function(event) {
         console.log(`${event.type}`);
     });
-});
+}
 
 function log(event, element)
 {
