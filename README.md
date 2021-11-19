@@ -1,6 +1,8 @@
 # sciter events
 
-This is a [sciter.js](https://sciter.com/) events demo.
+This [sciter.js](https://sciter.com/) project demonstrates the various ways to deal with events.
+
+![sciter events screenshot](screenshot.png)
 
 ## demo
 
