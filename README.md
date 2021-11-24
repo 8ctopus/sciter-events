@@ -28,7 +28,7 @@ Event handlers allow to react to events.
 
 [https://sciter.com/event-handling-in-sciter/](https://sciter.com/event-handling-in-sciter/)
 
-1. ### direct element event handler
+### 1. direct element event handler
 
 Element event handlers are attached to a particular element explicitly, which means that the **DOM element must exist for the event handler to attach to it**.
 
@@ -36,13 +36,13 @@ Element event handlers are attached to a particular element explicitly, which me
 - `element.addEventListener(eventName, handler [,options])` standard HTML5 event handler
 - `element.oneventname = function(event) {…}` primitive way and not recommended because of its limitations such just one click handler can be attached to any element. to confirm: propagation cannot be stopped?
 
-2. ### group (a.k.a. filtered) event handler
+### 2. group (a.k.a. filtered) event handler
 
 `element.on(eventName, "css selector", function(event, matchedElement) {…})`
 - applies to all elements matching css selector
 - Elements added to the DOM after the event handler was added are also tracked
 
-3. ### class component event handler
+### 3. class component event handler
 
 This group of event handlers is strictly Sciter specific and is used in class based UI components.
 
