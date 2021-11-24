@@ -24,9 +24,7 @@ An event is a signal that something has happened. All DOM nodes generate such si
 
 ## event handlers
 
-Event handlers allow to react to events.
-
-[https://sciter.com/event-handling-in-sciter/](https://sciter.com/event-handling-in-sciter/)
+Event handlers allow to react to events and there are 3 different types:
 
 ### 1. direct element event handler
 
@@ -47,6 +45,33 @@ Element event handlers are attached to a particular element explicitly, which me
 This group of event handlers is strictly Sciter specific and is used in class based UI components.
 
 `["on eventname at css-selector"](event, matchedChild) {}`
+
+For more info, check the sciter doc [https://sciter.com/event-handling-in-sciter/](https://sciter.com/event-handling-in-sciter/)
+
+## event handler return value
+
+Returning `true` inside an event handler, blocks further propagation of the event.
+
+```js
+document.on("click", "button", function() {
+    console.log("clicked 1");
+});
+
+document.on("click", "button", function() {
+    console.log("clicked 2");
+    return true;
+});
+
+document.on("click", "button", function() {
+    console.log("clicked 3");
+    return false;
+});
+```
+
+```txt
+LOG: clicked 3
+LOG: clicked 2
+```
 
 ## listen to multiple events
 
