@@ -48,31 +48,6 @@ This group of event handlers is strictly Sciter specific and is used in class ba
 
 For more info, check the sciter doc [https://sciter.com/event-handling-in-sciter/](https://sciter.com/event-handling-in-sciter/)
 
-## event handler return value
-
-Returning `true` inside an event handler, blocks further propagation of the event.
-
-```js
-document.on("click", "button", function() {
-    console.log("clicked 1");
-});
-
-document.on("click", "button", function() {
-    console.log("clicked 2");
-    return true;
-});
-
-document.on("click", "button", function() {
-    console.log("clicked 3");
-    return false;
-});
-```
-
-```txt
-LOG: clicked 3
-LOG: clicked 2
-```
-
 ## listen to multiple events
 
 Event names can be combined.
@@ -102,9 +77,36 @@ The event moves from the outermost element to the target element. It is rarely u
 
 When an event happens on an element, it first runs the handlers on it, then on its parent, then all the way up on other ancestors.
 
-But any handler may decide that the event has been fully processed and stop the bubbling. The method for it is `event.stopPropagation()`. Don’t stop bubbling without a need!
+But any handler may decide that the event has been fully processed and stop the bubbling by calling `event.stopPropagation()`. Don’t stop bubbling without a need!
 
 If an element has multiple event handlers on a single event, then even if one of them stops the bubbling, the other ones still execute. In this case use `event.stopImmediatePropagation()`.
+
+An alternative way to stop the propagation is to return `true` inside the event handler.
+
+```js
+document.on("click", "button", function(event) {
+    console.log("clicked 1");
+});
+
+document.on("click", "button", function(event) {
+    console.log("clicked 2");
+
+    // blocks propagation
+    return true;
+});
+
+document.on("click", "button", function(event) {
+    console.log("clicked 3");
+
+    // return false and no return have no effect on propagation
+    return false;
+});
+```
+
+```txt
+LOG: clicked 3
+LOG: clicked 2
+```
 
 ## send events from code
 
