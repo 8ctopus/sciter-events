@@ -14,13 +14,13 @@ This [sciter.js](https://sciter.com/) project demonstrates the various ways to d
 
 ## event
 
-An event is a signal that something has happened. All DOM nodes generate such signals but events are not limited to DOM.
+An event is a signal that something has happened. All DOM nodes generate such signals but events are not limited to the DOM.
 
 [https://javascript.info/introduction-browser-events](https://javascript.info/introduction-browser-events)
 
-## known events
+## known events list
 
-[https://github.com/8ctopus/sciter-js-sdk/blob/main/docs/md/Event.md#known-events](https://github.com/8ctopus/sciter-js-sdk/blob/main/docs/md/Event.md#known-events)
+[https://github.com/c-smile/sciter-js-sdk/blob/main/docs/md/Event.md#known-events](https://github.com/c-smile/sciter-js-sdk/blob/main/docs/md/Event.md#known-events)
 
 ## event handlers
 
@@ -28,7 +28,7 @@ Event handlers allow to react to events.
 
 [https://sciter.com/event-handling-in-sciter/](https://sciter.com/event-handling-in-sciter/)
 
-### direct element event handler
+1. ### direct element event handler
 
 Element event handlers are attached to a particular element explicitly, which means that the **DOM element must exist for the event handler to attach to it**.
 
@@ -36,13 +36,13 @@ Element event handlers are attached to a particular element explicitly, which me
 - `element.addEventListener(eventName, handler [,options])` standard HTML5 event handler
 - `element.oneventname = function(event) {…}` primitive way and not recommended because of its limitations such just one click handler can be attached to any element. to confirm: propagation cannot be stopped?
 
-### group (a.k.a. filtered) event handler
+2. ### group (a.k.a. filtered) event handler
 
 `element.on(eventName, "css selector", function(event, matchedElement) {…})`
 - applies to all elements matching css selector
 - Elements added to the DOM after the event handler was added are also tracked
 
-### class component event handler
+3. ### class component event handler
 
 This group of event handlers is strictly Sciter specific and is used in class based UI components.
 
@@ -56,13 +56,13 @@ Event names can be combined.
 
 ## event object
 
-[https://github.com/8ctopus/sciter-js-sdk/blob/main/docs/md/Event.md](https://github.com/8ctopus/sciter-js-sdk/blob/main/docs/md/Event.md)
+[https://github.com/c-smile/sciter-js-sdk/blob/main/docs/md/Event.md](https://github.com/c-smile/sciter-js-sdk/blob/main/docs/md/Event.md)
 
 ## event propagation
 
 The event propagation is bidirectional, from the window to the event target and back. This propagation can be divided into three phases:
 
-1. capture phase : from the window to the event target parent
+1. capture phase : from the window to the event target parent `^`
 2. target phase : the event target itself
 3. bubble phase : from the event target parent back to the window
 
@@ -83,11 +83,11 @@ If an element has multiple event handlers on a single event, then even if one of
 
 ## send events from code
 
-Events can also be sent from the javascript code by using the `dispatchEvent` method.
+Events can also be sent from the javascript code by using the `dispatchEvent (sync)` and `postEvent (async)` method.
 
 `element.dispatchEvent(new Event(typeArg [, eventInit]));`
 
-eventInit
+`eventInit`
 - `bubbles` default `false`
 - `cancelable` default `false`
 - `composed` default `false` whether the event will trigger listeners outside of a shadow root
