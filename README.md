@@ -77,11 +77,9 @@ The event moves from the outermost element to the target element. It is rarely u
 
 When an event happens on an element, it first runs the handlers on it, then on its parent, then all the way up on other ancestors.
 
-But any handler may decide that the event has been fully processed and stop the bubbling by calling `event.stopPropagation()`. Don’t stop bubbling without a need!
+But any handler may decide that the event has been fully processed and stop the bubbling by calling `event.stopPropagation()`. An alternative way to stop the propagation is to return `true` inside the event handler. Don’t stop bubbling without a need!
 
 If an element has multiple event handlers on a single event, then even if one of them stops the bubbling, the other ones still execute. In this case use `event.stopImmediatePropagation()`.
-
-An alternative way to stop the propagation is to return `true` inside the event handler.
 
 ```js
 document.on("click", "button", function(event) {
@@ -91,7 +89,7 @@ document.on("click", "button", function(event) {
 document.on("click", "button", function(event) {
     console.log("clicked 2");
 
-    // blocks propagation
+    // stops propagation
     return true;
 });
 
