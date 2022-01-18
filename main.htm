@@ -16,36 +16,36 @@ body {
 </style>
 <script type="module">
 
-import {logger} from "node_modules/sciter-logger/src/logger.js";
-import * as utils from "node_modules/sciter-utils/src/utils.js";
-
-// initialize logger
-logger.init();
-
-// attach logger to console
-logger.attach();
+import Logger from "node_modules/sciter-logger/src/logger.js";
+import * as Utils from "node_modules/sciter-utils/src/utils.js";
 
 // capture unhandled exceptions
-logger.capture();
+Logger.capture();
 
-document.ready = function() {
-    // subscribe to logger messages
-    logger.plaintext(document.$("plaintext#logger"));
+// initialize logger
+Logger.init();
+
+// attach logger to console
+Logger.attach();
+
+document.on("ready", function() {
+    // redirect logger output to plaintext
+    Logger.plaintext(document.$("plaintext#logger"));
 
     // log sciter version
-    console.debug(utils.sciterInfo());
+    console.debug(Utils.sciterInfo());
 
     // add support for F5 reload
-    utils.addReloadWindow();
+    Utils.addReloadWindow();
 
     // close window on escape key press
-    utils.closeWindowOnEscape(Window.this);
+    Utils.closeWindowOnEscape(Window.this);
 
     // center window on screen
-    utils.centerWindow(Window.this, "screen");
+    Utils.centerWindow(Window.this, "screen");
 
-    // bring window to front
-    utils.windowToFront(Window.this);
+    // bring window to front and set input focus
+    Window.this.activate(true);
 
     // direct element event handlers
     // 1. primitive event handler - not recommended see readme
@@ -129,7 +129,7 @@ document.ready = function() {
     document.on("focus dblclick scroll zoom select resize", function(event) {
         console.log(`${event.type}`);
     });
-}
+});
 
 function log(event, element)
 {
