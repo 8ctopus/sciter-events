@@ -63,12 +63,10 @@ document.on("ready", function() {
         log(event);
     });
 
-
     // group event handler for right click on all buttons
     document.on("contextmenu", "button", function(event, element) {
         log(event, element);
     });
-
 
     // add event handler for not yet existing button 4
     document.on("click", "button#b4", function(event, element) {
@@ -83,10 +81,9 @@ document.on("ready", function() {
 
     document.$("div").append(button);
 
-
     // capture event handler with propagation block
     // button2 mousemove is never called
-    document.on("^mousemove", "button", function(event, element) {
+    document.on("^mousemove", "button", function(event, _element) {
         // block other subscribers from getting the event
         event.stopPropagation();
     });
@@ -96,19 +93,17 @@ document.on("ready", function() {
         log(event);
     });
 
-
     // send click event
     document.$("button#b2").click();
 
     // alternative way using event
     document.$("button#b3").dispatchEvent(new Event("click", {
-        "bubbles": true,
-        "cancelable": false,
-        "composed": false,
+        bubbles: true,
+        cancelable: false,
+        composed: false,
     }));
 
     document.dispatchEvent(new Event("click", {}));
-
 
     // send custom event
     document.addEventListener("myevent", function(event) {
@@ -123,7 +118,6 @@ document.on("ready", function() {
     });
 
     document.dispatchEvent(event);
-
 
     // listen for multiple events
     document.on("focus dblclick scroll zoom select resize", function(event) {
